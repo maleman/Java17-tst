@@ -1,0 +1,44 @@
+
+In order to connect to a database, the Java application has to perform the following tasks: 
+    1. Ensure that the relevant JDBC driver is available in the class path or module path of the application. 
+    2. Load the JDBC driver to memory. 
+    3. Establish the database connection.
+        3.1. Create SQL statements. 
+        3.2. Execute SQL statements.
+        3.3. Process query results. 
+        3.4. Close the JDBC resources.
+
+Procedure to use a basic statement:
+    1. Create a Connection with the DriverManager.getConnection() method. 
+    2. Obtain a Statement from the connection by calling its createStatement() method.
+    3. Formulate a SQL operation.
+    4. Call the appropriate execute method of the statement, passing the SQL operation as the String parameter.    
+
+
+JDBC API interfaces
+    1- java.sql.Statement (CRUD or DDL operations) ** performance and security issues **
+    2- java.sql.PreparedStatement (subinterface of the Statement, substitutional parameterization) ** Marker parameters **
+    3- java.sql.CallableStatement (subinterface of the PreparedStatement, stored procedure or function) ** Marker parameters **
+
+methods of the Statement:
+    1- boolean execute(String sql) (Returns true for the SELECT statement, false otherwise).
+    2- ResultSet executeQuery(String sql) (Just for execute SELECT statements,  Passing a non-SELECT operation will throw a SQLException)    
+    3- int executeUpdate(String sql) (method can be called to execute any operations, except SELECT operations, passing a SELECT operation will throw a SQLException)
+    4- ResultSet getResultSet() 
+    5- int getUpdateCount() (Returns the number of rows of a non-SELECT query)
+
+The try-with-resources statement will ensure that these resources are closed in the right order—that is, the reverse of their declarations.
+
+Three kinds of marker parameters can be specified in a call to a stored procedure or function on the database side: IN, OUT, and INOUT parameters.
+Before executing callable statements with OUT parameters, the registerOutputParameter() method of the callable statement should be used to specify the expected 
+types of the values returned in the OUT parameters. Ex: cStatement1.registerOutParameter(2, Types.VARCHAR);
+
+ResultSet is AutoClosaeable
+Traversing the Result Set
+    1- Initially the cursor is positioned just before the first row.
+    2- A result set can be traversed by moving the cursor forward by one row by calling the next() method of the ResultSet interface.
+    3- If the next() method returns true, the cursor has been moved forward and the row it points to is now the current row whose column values can be read 
+        from the result set using the get methods of the ResultSet interface (p. 1575).
+    4- If the next() method returns false, the cursor now points past the last row and there are no more rows to traverse in the result set.
+
+    ** A result set can only be traversed once from the first row to the last row. **

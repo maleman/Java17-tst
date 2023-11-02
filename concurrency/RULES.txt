@@ -1,0 +1,39 @@
+1. Execution of code in different threads is unpredictable.
+2. A thread that started earlier may or may not complete its work sooner than the thread that started later, even if it has less work to do.
+3. Any attempt to control exact execution order will very likely to impact performance and may result in all sorts of unwanted side effects, 
+    which will be discussed later in this chapter.
+
+Implementing the task performed by a thread is achieved in one of two ways:
+    1- Implementing the functional interface java.lang.Runnable 
+    2- Extending the java.lang.Thread class
+
+@FunctionalInterface 
+public interface Runnable {  void run(); }
+
+The method run() does not return a value, does not take any parameters, and does not throw any checked exceptions.
+
+** The Thread class implements the Runnable interface by providing an implementation of the run() method. **
+
+Types of Threads
+
+    1- User threads are high-priority threads. The JVM will wait for any user thread to complete its task before terminating it.
+    2- On the other hand, daemon threads are low-priority threads whose only role is to provide services to user threads.
+
+The status of a spawned thread can be set as either daemon or normal, but this must be done before the thread is started. 
+Any attempt to change the status after the thread has been started, throws an unchecked IllegalThreadState-Exception.
+
+Thread States:
+    1- Runnable
+        A. READY
+        B. RUNNING
+    2- Non Runnable
+        A. BLOCKED
+        B. WAITING
+        C. TIMED_WAITING
+
+Methods from the Thread class:
+    1- final boolean isAlive() (This method can be used to find out if a thread is alive or dead.)
+    2- Thread.State getState()
+    3- final int getPriority() | final void setPriority(int newPriority)
+    4- static void yield() 
+    5- static void sleep(long millisec) throws InterruptedException | static void sleep(long millis, int nanos) throws InterruptedException
