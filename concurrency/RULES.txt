@@ -37,3 +37,14 @@ Methods from the Thread class:
     3- final int getPriority() | final void setPriority(int newPriority)
     4- static void yield() 
     5- static void sleep(long millisec) throws InterruptedException | static void sleep(long millis, int nanos) throws InterruptedException
+
+ ** synchronization of static methods in a class is independent from the synchronization of instance methods on objects of the class.    **
+ ** A subclass decides whether the new definition of an inherited synchronized method will remain synchronized in the subclass. **
+
+Fairness
+ The fairness property of a multithreaded application refers to threads in the application getting a fair chance to run—so that all threads 
+ in the application can make progress in their work, and no thread monopolizes the CPU at the expense of others.
+
+liveness
+The liveness property of a multithreaded application refers to the ability of the threads to execute in a timely manner—meaning 
+performing as expected and making continuous progress in their work.

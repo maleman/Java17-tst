@@ -8,11 +8,18 @@ public class MutualExclusion{
         System.out.printf("%s : old:%s new:%s \n", Thread.currentThread().getName(), this.counter, ++this.counter);
     }
 
+    public void increment2(){
+        synchronized(this){
+            System.out.printf("%s : old:%s new:%s \n", Thread.currentThread().getName(), this.counter, ++this.counter);
+        }
+        
+    }
+
     public static void main(String[] args){
         MutualExclusion me = new MutualExclusion();
         Runnable r1 = () -> {
             for(int i = 0; i<5; i++){
-                me.increment();
+                me.increment2();
             }
              System.out.printf("Exiting thread %s \n", Thread.currentThread().getName());
         };
